@@ -3,25 +3,14 @@
 #include <math.h>
 
 /*basicmeancalculation
-ver. 1
+ver. 2
  main
  sqre
 @ddaiem*/
 
-int sqre(int A, int B) {
-	int k;
-	int result = 1;
-
-	for (k = 0; k < B; k++) {
-		result = result * A;
-	}
-	return result;
-}
-
 int main(void) {
-	int i = 0, j = 0, sum1 = 0, sum2 = 0; //i=변량수 j=임의 실수
+	int i = 0, j = 0, sum= 0, mean=0; //i=변량수 j=임의 실수
 	int variance[50]; //변량값 입력
-	int mean = 0, pmean = 0; //평균값
 	int deviation[50]; //편차값
 
 	double SD;//표준편차
@@ -38,37 +27,40 @@ int main(void) {
 		printf("enter variance[%d]:", j + 1);
 		scanf("%d", &variance[j]);
 
-		sum1 += variance[j];
+		sum += variance[j];
 	}
 
-	mean = sum1 / i;
+	mean = sum / i;
+
+	sum = 0;
 
 	for (j = 0; j < i; j++) {
 		deviation[j] = (variance[j] - mean) * (variance[j] - mean);
-		sum2 += deviation[j];
+		sum += deviation[j];
 	}
-	SD = sqrt(sum2 / i);
+	SD = sqrt(sum / i);
 
 	printf("\n");
 	printf("mean: %d\n", mean);
 	printf("standard deviation: %f\n", SD);
 	printf("sqaure of standard deviation: %f\n", SD * SD);
-
 	printf("\n");
 
 	printf("enter number of square:");
 	scanf("%d", &n);
 
+	mean = 0;
+
 	for (j = 0; j < i; j++) {
-		variance[j] = sqre(variance[j], n);
+		variance[j] = pow(variance[j], n);
 		printf("variance[%d]=%d\n", j + 1, variance[j]);
 
-		pmean = pmean + variance[j];
+		mean += variance[j];
 	}
 
-	pmean = pmean / i;
+	mean = mean / i;
 
-	printf("squared mean: %d\n", pmean);
+	printf("squared mean: %d\n", mean);
 
 	return 0;
 }
